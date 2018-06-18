@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    
     private void initGui() {
         editUserName = findViewById(R.id.login_user_name_id);
         editUserPassword = findViewById(R.id.login_user_password_id);
