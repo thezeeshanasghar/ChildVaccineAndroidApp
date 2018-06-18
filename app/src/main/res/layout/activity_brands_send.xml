@@ -26,6 +26,8 @@
     <Button
         android:id="@+id/btn_send_brand_add"
         android:text="Add"
+        android:textColor="@color/login_btn_text_color"
+        android:background="@color/login_btn_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -132,18 +132,11 @@ public class DoctorsFragment extends Fragment implements SearchView.OnQueryTextL
         return super.onOptionsItemSelected(item);
     }
 
-    public void toolBarChange() {
-
-        Toast.makeText(getActivity(), "tool bar change", Toast.LENGTH_LONG).show();
-
-    }
 
     private void initListeners() {
         doctorsAdapter.SetOnItemClickListener(new DoctorsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position, ArrayList<DoctorUser.Doctors> modelList) {
-                Toast.makeText(getActivity(), "Position: " + position + "\nName: " +
-                        " " + modelList.get(position).LastName, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getActivity(), DoctorsEdit.class);
                 intent.putExtra("doctorid", modelList.get(position).ID);

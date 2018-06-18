@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    
     private void initGui() {
         editUserName = findViewById(R.id.login_user_name_id);
         editUserPassword = findViewById(R.id.login_user_password_id);
@@ -71,12 +70,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 validateFields();
 
-
             }
         });
     }
 
     private void validateFields() {
+
         if (editUserName.getText().toString().equals("")) {
             editUserName.requestFocus();
             editUserName.setError("Field Required");
@@ -103,14 +102,16 @@ public class LoginActivity extends AppCompatActivity {
                 AdminUser loginModal = response.body();
                 if (loginModal != null) {
 
-                    Toast.makeText(LoginActivity.this, loginModal.Message, Toast.LENGTH_LONG).show();
-                    if (loginModal.IsSuccess.equals("true")) {
+                    if (loginModal.IsSuccess) {
 
+                        Toast.makeText(LoginActivity.this, "login successfull", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("Exit", true);
                         startActivity(intent);
 
-                    }
+                    } else
+                        Toast.makeText(LoginActivity.this, loginModal.Message, Toast.LENGTH_LONG).show();
+
 
                 } else {
                     Toast.makeText(LoginActivity.this, "No response available", Toast.LENGTH_LONG).show();

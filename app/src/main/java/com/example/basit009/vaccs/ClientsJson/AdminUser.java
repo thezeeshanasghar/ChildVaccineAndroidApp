@@ -7,10 +7,12 @@ public class AdminUser {
 
     @SerializedName("IsSuccess")
     @Expose
-    public String IsSuccess;
+    public boolean IsSuccess;
 
     @SerializedName("Message")
     @Expose
     public String Message;
+
+
 
 }

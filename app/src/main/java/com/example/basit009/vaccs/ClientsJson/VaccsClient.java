@@ -52,12 +52,12 @@ public interface VaccsClient {
     Call<DoseAddData> addDose(@Body DoseAddData data);
 
     @DELETE("vaccine/{ID}")
-    Call<VaccinesUser> delete(@Path("ID") int id);
+    Call<VaccinesUserDelete> delete(@Path("ID") int id);
 
     @DELETE("brand/{ID}")
-    Call<BrandVaccines> deleteBrands(@Path("ID") int id);
+    Call<BrandVaccinesDelete> deleteBrands(@Path("ID") int id);
 
     @DELETE("dose/{ID}")
-    Call<DossesVaccines> deleteDoses(@Path("ID")int id);
+    Call<DossesVaccinesDelete> deleteDoses(@Path("ID")int id);
 
 }

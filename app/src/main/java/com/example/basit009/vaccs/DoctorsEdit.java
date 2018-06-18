@@ -2,6 +2,8 @@ package com.example.basit009.vaccs;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ public class DoctorsEdit extends AppCompatActivity {
     private TextView tvEditDoctorFirstName,tvEditDoctorLastName,tvEditDoctorEmail,tvEditDoctorMobile,
             tvEditDoctorPmdc,tvEditDoctorValidupto;
     private CheckBox cbAllowInvoice,cbAllowFollowup,cbAllowChart,cbAllowInventory;
+    private Button updateButton;
     private EditText etSmsLimit;
     private int doctorId=0;
 
@@ -45,6 +48,14 @@ public class DoctorsEdit extends AppCompatActivity {
         cbAllowInvoice=findViewById(R.id.cb_edit_doctor_allowinvoice);
         cbAllowInventory=findViewById(R.id.cb_edit_doctor_allowinventory);
         etSmsLimit=findViewById(R.id.et_edit_doctor_smslimit);
+        updateButton=findViewById(R.id.btn_edit_doctor_update);
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DoctorsEdit.this, "Working on implementation", Toast.LENGTH_LONG).show();
+            }
+        });
 
         if (!NetworkUtils.isNetworkAvailable(DoctorsEdit.this)) {
             Toast.makeText(DoctorsEdit.this, "NO internet Available", Toast.LENGTH_LONG).show();

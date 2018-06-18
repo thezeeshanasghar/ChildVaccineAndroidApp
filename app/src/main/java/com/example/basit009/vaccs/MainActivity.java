@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements DoctorsFragment.O
         if(keyCode==KeyEvent.KEYCODE_BACK)
         {
             if(getIntent().getBooleanExtra("Exit",true)){
-                Toast.makeText(this, "inside keyback", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "inside keyback", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -98,6 +98,12 @@ public class MainActivity extends AppCompatActivity implements DoctorsFragment.O
         if (id == R.id.action_logout) {
             Intent intent=new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.action_about) {
+
+            Toast.makeText(this, "Name:-Basit Ali\nMobile:-03120607099\nEmail:-basit.shah94@gmail.com", Toast.LENGTH_LONG).show();
             return true;
         }
 

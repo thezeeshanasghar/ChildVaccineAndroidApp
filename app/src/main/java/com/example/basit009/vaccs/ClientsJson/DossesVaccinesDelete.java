@@ -3,9 +3,7 @@ package com.example.basit009.vaccs.ClientsJson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-public class BrandVaccines {
+public class DossesVaccinesDelete {
 
     @SerializedName("IsSuccess")
     @Expose
@@ -17,17 +15,6 @@ public class BrandVaccines {
 
     @SerializedName("ResponseData")
     @Expose
-    public ArrayList<BrandVaccines.Brands> brandsList;
+    public String ResponseData;
 
-    public class Brands {
-
-        @SerializedName("ID")
-        @Expose
-        public int ID;
-
-        @SerializedName("Name")
-        @Expose
-        public String Name;
-
-    }
 }

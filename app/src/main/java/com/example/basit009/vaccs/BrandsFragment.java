@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.basit009.vaccs.ClientsJson.BrandVaccines;
+import com.example.basit009.vaccs.ClientsJson.BrandVaccinesDelete;
 import com.example.basit009.vaccs.ClientsJson.NetworkUtils;
 import com.example.basit009.vaccs.ClientsJson.ServiceGenerator;
 import com.example.basit009.vaccs.ClientsJson.VaccinesUser;
@@ -114,7 +115,7 @@ public class BrandsFragment extends Fragment implements MenuItem.OnMenuItemClick
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_brands, container, false);
-       // Toast.makeText(getActivity(), "brands Fragment", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(), "brands Fragment", Toast.LENGTH_LONG).show();
 
         vaccsId = getActivity().getIntent().getExtras().getInt("VaccId");
         vaccsClient = ServiceGenerator.createService(VaccsClient.class);
@@ -145,7 +146,7 @@ public class BrandsFragment extends Fragment implements MenuItem.OnMenuItemClick
         brandsAdapter.setItemLongClickListener(new BrandsAdapter.ItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int pos, ArrayList<BrandVaccines.Brands> modelList) {
-                Toast.makeText(getActivity(), "long click", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "long click", Toast.LENGTH_LONG).show();
 
                 brandsItemDelete.setVisible(true);
 
@@ -157,7 +158,6 @@ public class BrandsFragment extends Fragment implements MenuItem.OnMenuItemClick
 
 
     }
-
 
 
     private void initListeners() {
@@ -181,20 +181,32 @@ public class BrandsFragment extends Fragment implements MenuItem.OnMenuItemClick
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+
                         brandsAdapter.unCheckItems();
                         brandsItemDelete.setVisible(false);
 
-                        final Call<BrandVaccines> call = vaccsClient.deleteBrands(brandsDeleteId);
 
-                        call.enqueue(new Callback<BrandVaccines>() {
+                        if (!NetworkUtils.isNetworkAvailable(getActivity())) {
+                            Toast.makeText(getActivity(), "NO internet Available", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+
+                        final Call<BrandVaccinesDelete> call = vaccsClient.deleteBrands(brandsDeleteId);
+
+                        call.enqueue(new Callback<BrandVaccinesDelete>() {
                             @Override
-                            public void onResponse(Call<BrandVaccines> call, Response<BrandVaccines> response) {
+                            public void onResponse(Call<BrandVaccinesDelete> call, Response<BrandVaccinesDelete> response) {
 
-                                BrandVaccines brandDelete = response.body();
+                                BrandVaccinesDelete brandDelete = response.body();
                                 // Toast.makeText(getActivity(), "Yes button "+ vaccindeDeleteId, Toast.LENGTH_SHORT).show();
 
                                 if (brandDelete != null) {
-                                    Toast.makeText(getActivity(), brandDelete.IsSuccess, Toast.LENGTH_LONG).show();
+
+                                    if (brandDelete.IsSuccess) {
+                                        Toast.makeText(getActivity(), brandDelete.ResponseData, Toast.LENGTH_LONG).show();
+                                    } else
+                                        Toast.makeText(getActivity(), brandDelete.Message, Toast.LENGTH_LONG).show();
 
                                 } else {
                                     Toast.makeText(getActivity(), "No response available", Toast.LENGTH_SHORT).show();
@@ -203,7 +215,7 @@ public class BrandsFragment extends Fragment implements MenuItem.OnMenuItemClick
                             }
 
                             @Override
-                            public void onFailure(Call<BrandVaccines> call, Throwable t) {
+                            public void onFailure(Call<BrandVaccinesDelete> call, Throwable t) {
                                 Toast.makeText(getActivity(), "call failed", Toast.LENGTH_SHORT).show();
 
                             }
@@ -231,10 +243,6 @@ public class BrandsFragment extends Fragment implements MenuItem.OnMenuItemClick
 
 
     }
-
-
-
-
 
 
     private void getUserBooks() {

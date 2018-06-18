@@ -136,8 +136,7 @@ public class ChildrenFragment extends Fragment implements SearchView.OnQueryText
         childrensAdapter.SetOnItemClickListener(new ChildrensAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position, ArrayList<ChildrenUser.Childrens> modelList) {
-                Toast.makeText(getActivity(), "Position: " + position + "\nName: "+
-                        " "+modelList.get(position).Name , Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),  "Name:- "+modelList.get(position).Name , Toast.LENGTH_LONG).show();
 
 //                Intent intent=new Intent(getActivity(),ChildrenEdit.class);
 //                startActivity(intent);

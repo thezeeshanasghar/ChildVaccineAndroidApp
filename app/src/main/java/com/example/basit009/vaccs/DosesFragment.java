@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.basit009.vaccs.ClientsJson.BrandVaccines;
 import com.example.basit009.vaccs.ClientsJson.DossesVaccines;
+import com.example.basit009.vaccs.ClientsJson.DossesVaccinesDelete;
 import com.example.basit009.vaccs.ClientsJson.NetworkUtils;
 import com.example.basit009.vaccs.ClientsJson.ServiceGenerator;
 import com.example.basit009.vaccs.ClientsJson.VaccsClient;
@@ -180,17 +181,23 @@ public class DosesFragment extends Fragment implements MenuItem.OnMenuItemClickL
                         dosesAdapter.unCheckItems();
                         dosesItemDelete.setVisible(false);
 
-                        final Call<DossesVaccines> call = vaccsClient.deleteDoses(dosesDeleteId);
+                        final Call<DossesVaccinesDelete> call = vaccsClient.deleteDoses(dosesDeleteId);
 
-                        call.enqueue(new Callback<DossesVaccines>() {
+                        call.enqueue(new Callback<DossesVaccinesDelete>() {
                             @Override
-                            public void onResponse(Call<DossesVaccines> call, Response<DossesVaccines> response) {
+                            public void onResponse(Call<DossesVaccinesDelete> call, Response<DossesVaccinesDelete> response) {
 
-                                DossesVaccines dosesDelete = response.body();
+                                DossesVaccinesDelete dosesDelete = response.body();
                                 // Toast.makeText(getActivity(), "Yes button "+ vaccindeDeleteId, Toast.LENGTH_SHORT).show();
 
                                 if (dosesDelete != null) {
-                                    Toast.makeText(getActivity(), dosesDelete.Message, Toast.LENGTH_LONG).show();
+
+                                    if (dosesDelete.IsSuccess) {
+                                        Toast.makeText(getActivity(), dosesDelete.ResponseData, Toast.LENGTH_LONG).show();
+                                        getUserBooks();
+
+                                    } else
+                                        Toast.makeText(getActivity(), dosesDelete.Message, Toast.LENGTH_LONG).show();
 
                                 } else {
                                     Toast.makeText(getActivity(), "No response available", Toast.LENGTH_SHORT).show();
@@ -199,7 +206,7 @@ public class DosesFragment extends Fragment implements MenuItem.OnMenuItemClickL
                             }
 
                             @Override
-                            public void onFailure(Call<DossesVaccines> call, Throwable t) {
+                            public void onFailure(Call<DossesVaccinesDelete> call, Throwable t) {
                                 Toast.makeText(getActivity(), "call failed", Toast.LENGTH_SHORT).show();
 
                             }

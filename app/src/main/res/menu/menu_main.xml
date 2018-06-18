@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.basit009.vaccs.MainActivity">
 
 
+
     <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="About"
         android:visible="true"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
-        android:title="Logout"
+        android:title="Log out"
+        android:visible="true"
         app:showAsAction="never" />
+
 
 
 </menu>

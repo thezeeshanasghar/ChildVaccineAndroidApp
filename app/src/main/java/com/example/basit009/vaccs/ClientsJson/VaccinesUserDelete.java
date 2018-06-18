@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class BrandVaccines {
+public class VaccinesUserDelete {
 
     @SerializedName("IsSuccess")
     @Expose
@@ -17,17 +17,6 @@ public class BrandVaccines {
 
     @SerializedName("ResponseData")
     @Expose
-    public ArrayList<BrandVaccines.Brands> brandsList;
+    public String Responsedata;
 
-    public class Brands {
-
-        @SerializedName("ID")
-        @Expose
-        public int ID;
-
-        @SerializedName("Name")
-        @Expose
-        public String Name;
-
-    }
 }

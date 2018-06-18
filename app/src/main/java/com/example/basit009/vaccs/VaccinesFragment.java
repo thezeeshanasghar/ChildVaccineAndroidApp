@@ -27,6 +27,7 @@ import com.example.basit009.vaccs.ClientsJson.DoctorUser;
 import com.example.basit009.vaccs.ClientsJson.NetworkUtils;
 import com.example.basit009.vaccs.ClientsJson.ServiceGenerator;
 import com.example.basit009.vaccs.ClientsJson.VaccinesUser;
+import com.example.basit009.vaccs.ClientsJson.VaccinesUserDelete;
 import com.example.basit009.vaccs.ClientsJson.VaccsClient;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class VaccinesFragment extends Fragment implements SearchView.OnQueryText
     private int vaccindeDeleteId = 0;
     private String vaccineDeleteName;
     private ProgressBar progressBar;
-    private boolean dataLoaded=false;
+    private boolean dataLoaded = false;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -122,12 +123,12 @@ public class VaccinesFragment extends Fragment implements SearchView.OnQueryText
 
 //      Toast.makeText(getActivity(),"vaccines Fragment",Toast.LENGTH_LONG).show();
 
-        dataLoaded=false;
+        dataLoaded = false;
         view = inflater.inflate(R.layout.fragment_vaccines, container, false);
         fabVaccinesData = view.findViewById(R.id.fab_vaccines_id);
         vaccsClient = ServiceGenerator.createService(VaccsClient.class);
         rcvVaccines = view.findViewById(R.id.rcv_list_vaccines);
-        progressBar=view.findViewById(R.id.progressbar_vaccines);
+        progressBar = view.findViewById(R.id.progressbar_vaccines);
         rcvVaccines.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         rcvVaccines.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -206,7 +207,7 @@ public class VaccinesFragment extends Fragment implements SearchView.OnQueryText
                         rcvVaccines.setAdapter(vaccinesAdapter);
                         initListeners();
                         onLongClickListener();
-                        dataLoaded=true;
+                        dataLoaded = true;
                     }
                 } else {
                     Toast.makeText(getActivity(), "No response available", Toast.LENGTH_SHORT).show();
@@ -234,27 +235,28 @@ public class VaccinesFragment extends Fragment implements SearchView.OnQueryText
                         itemSearch.setVisible(true);
                         itemDelete.setVisible(false);
 
-                        final Call<VaccinesUser> call = vaccsClient.delete(vaccindeDeleteId);
+                        final Call<VaccinesUserDelete> call = vaccsClient.delete(vaccindeDeleteId);
 
-                        call.enqueue(new Callback<VaccinesUser>() {
+                        call.enqueue(new Callback<VaccinesUserDelete>() {
                             @Override
-                            public void onResponse(Call<VaccinesUser> call, Response<VaccinesUser> response) {
+                            public void onResponse(Call<VaccinesUserDelete> call, Response<VaccinesUserDelete> response) {
 
 
-                                VaccinesUser vaccinesDelete = response.body();
+                                VaccinesUserDelete vaccinesDelete = response.body();
                                 // Toast.makeText(getActivity(), "Yes button "+ vaccindeDeleteId, Toast.LENGTH_SHORT).show();
 
                                 if (vaccinesDelete != null) {
-                                    Toast.makeText(getActivity(), vaccinesDelete.Message, Toast.LENGTH_LONG).show();
 
-                                } else {
-                                    Toast.makeText(getActivity(), "No response available", Toast.LENGTH_SHORT).show();
+                                    if (!vaccinesDelete.IsSuccess) {
+                                        Toast.makeText(getActivity(), vaccinesDelete.Message, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), vaccinesDelete.Responsedata, Toast.LENGTH_LONG).show();
+                                    }
                                 }
-
                             }
 
                             @Override
-                            public void onFailure(Call<VaccinesUser> call, Throwable t) {
+                            public void onFailure(Call<VaccinesUserDelete> call, Throwable t) {
                                 Toast.makeText(getActivity(), "call failed", Toast.LENGTH_SHORT).show();
 
                             }
@@ -317,7 +319,7 @@ public class VaccinesFragment extends Fragment implements SearchView.OnQueryText
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(dataLoaded) {
+        if (dataLoaded) {
             String userInput = newText.toLowerCase();
             ArrayList<VaccinesUser.Vaccines> vaccinesArrayList = new ArrayList<>();
             for (VaccinesUser.Vaccines list : vaccinesUser.vaccinesList) {
