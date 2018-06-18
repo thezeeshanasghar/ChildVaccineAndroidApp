@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#338091</color>
+    <color name="colorPrimaryDark">#2f7281</color>
+    <color name="colorAccent">#2f7281</color>
+    <color name="idlColorView">#eae4e6</color>
+    <color name="login_btn_color">#298da3</color>
+    <color name="login_btn_text_color">#ffffff</color>
+    <color name="tab_below_highlight_color">#ffffff</color>
+
+</resources>
